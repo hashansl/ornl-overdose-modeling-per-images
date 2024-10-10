@@ -41,4 +41,4 @@ def plot_loss_curves(results: Dict[str, List[float]]):
     plt.title('Accuracy')
     plt.xlabel('Epochs')
     plt.legend()
-    plt.savefig('/home/h6x/git_projects/overdose_modeling/SEResNet_15_channels/plots/loss_and_accuracy_curves_test_1_95_percentile_3.png')
+    plt.savefig('/home/h6x/git_projects/ornl-overdose-modeling-per-images/SEResNet_15_channels/plots/loss_and_accuracy_curves_test_1_90_percentile_1.png')
