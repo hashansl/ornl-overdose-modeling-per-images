@@ -3,3 +3,6 @@ SEResNet_15_channels/plots/
 
 SEResNet_class_weights/models/
 SEResNet_class_weights/plots/
+
+SEResNet_15_channels_weights_track/models/
+SEResNet_15_channels_weights_track/plots/

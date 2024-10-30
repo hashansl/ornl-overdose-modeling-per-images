@@ -25,7 +25,7 @@ class data_loader_persistence_img(Dataset):
         # self.annotations = pd.read_csv(annotation_file_path)
         self.root_dir = root_dir
         self.transform = transform
-        self.class_names = sorted(self.annotations['OD_class_90'].unique())
+        self.class_names = sorted(self.annotations['OD_class'].unique())
         self.to_pil = ToPILImage()  # Initialize ToPILImage transform
 
     def __len__(self):
@@ -33,15 +33,16 @@ class data_loader_persistence_img(Dataset):
 
     def __getitem__(self,index):
 
-        npy_file_path = os.path.join(self.root_dir, str(self.annotations.iloc[index,1]) + '.npy')
-        # npy_file_path = os.path.join(self.root_dir, str(self.annotations.iloc[index,0]) + '.npy')
+        png_file_path = os.path.join(self.root_dir, str(self.annotations.iloc[index,0]) + '.png')
 
-        img = np.load(npy_file_path).astype(np.float32)
-        img = resize(img, (244, 244, 15), anti_aliasing=True)
+        img = io.imread(png_file_path).astype(np.float32)
+
+        # img = np.load(npy_file_path).astype(np.float32)
+        img = resize(img, (244, 244, 3), anti_aliasing=True)
 
         # img = self.to_pil(img)
 
-        y_label = torch.tensor(int(self.annotations.iloc[index]['OD_class_90']))
+        y_label = torch.tensor(int(self.annotations.iloc[index]['OD_class']))
 
         if self.transform:
             img = self.transform(img)

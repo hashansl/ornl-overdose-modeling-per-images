@@ -22,8 +22,8 @@ CONFIG_NAME = 50
 
 # Setup directories
 
-root_dir = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/npy_combined"
-annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile.csv"
+root_dir = "/home/h6x/git_projects/ornl-svi-data-processing/processed_data/adjacency_pers_images_npy_county/experimet_10/images"
+annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/processed_data/adjacency_pers_images_npy_county/experimet_10/annotations_2018_npy_2_classes_only_h1_90_percentile_all_data.csv"
 
 
 # Setup target device
@@ -78,7 +78,7 @@ results = engine.train(model=model,
              device=device,
              use_mixed_precision=True,
              save_name="se_restnet.pth",
-             save_path="/home/h6x/git_projects/ornl-overdose-modeling-per-images/SEResNet_15_channels/models/")
+             save_path="/home/h6x/Projects/overdose_modeling/SEResNet_images_as_input/models/")
 
 # End the timer and print out how long it took
 end_time = timer()
@@ -118,7 +118,7 @@ def plot_confusion_matrix(conf_matrix, class_names):
     plt.ylabel('True')
     plt.title('Confusion Matrix')
     # plt.show()
-    plt.savefig('/home/h6x/git_projects/ornl-overdose-modeling-per-images/SEResNet_15_channels/plots/confusion_matrix_test_1_90_percentile_1.png')
+    plt.savefig('/home/h6x/Projects/overdose_modeling/SEResNet_images_as_input/plots/confusion_matrix_test_1_90_percentile_1.png')
 
 # Plot the confusion matrix
 plot_confusion_matrix(conf_matrix, class_names)
