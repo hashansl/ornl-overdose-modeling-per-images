@@ -52,22 +52,14 @@ class data_loader_persistence_img(Dataset):
 
 
 
-# root_dir = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/npy_combined" # has 2
-# annotation_file_path = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile.csv"
+# root_dir = "/home/h6x/Projects/data_processing/data/processed_data/persistence_images/below_90th/h0h1/npy_combined_features" # has 5 classes
+# annotation_file_path = "/home/h6x/Projects/overdose_modeling/data/processed_data/svi_with_hepvu/2018/annotations_2018/annotation.csv"
+
+# root_dir = "/home/h6x/Projects/data_processing/data/processed_data/persistence_images/below_90th/test2" # has 5 classes
+# annotation_file_path = "/home/h6x/Projects/overdose_modeling/data/processed_data/svi_with_hepvu/2018/annotations_2018/filtered_annotation.csv"
+
 
 # dataset = data_loader_persistence_img(annotation_file_path=annotation_file_path,root_dir=root_dir,transform=transforms.ToTensor())
-
-
-# # get the number of labels in each class using dataset object
-# class_names = dataset.get_class_names()
-
-# print(class_names)
-# print(len(class_names))
-
-
-
-
-
 
 # print(len(dataset))
 # # print(dataset.__getitem__(0)[0])
@@ -76,7 +68,7 @@ class data_loader_persistence_img(Dataset):
 
 # print(len(dataset[0]))
 
-# print(dataset[400][1])
+# print(dataset[0][1])
 # print(dataset[0][0].shape)
 
 # train_set, test_set = torch.utils.data.random_split(dataset, [70, 25])

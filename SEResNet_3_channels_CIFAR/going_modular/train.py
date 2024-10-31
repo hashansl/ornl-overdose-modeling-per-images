@@ -14,9 +14,9 @@ from sklearn.utils.class_weight import compute_class_weight
 import numpy as np
 
 # Setup hyperparameters
-NUM_EPOCHS = 10
-BATCH_SIZE = 64
-LEARNING_RATE = 0.00020703742384961855
+NUM_EPOCHS = 50
+BATCH_SIZE = 1024
+LEARNING_RATE = 0.001
 CONFIG_NAME = 50
 
 
@@ -35,12 +35,14 @@ data_transform = transforms.Compose([
 ])
 
 # Create DataLoaders with help from data_setup.py
-train_dataloader, validation_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(
+train_dataloader, validation_dataloader, test_dataloader = data_setup.create_dataloaders(
     annotation_file_path=annotation_file_path,
     root_dir=root_dir,
     transform=data_transform,
     batch_size=BATCH_SIZE
 )
+
+
 
 # Create model with help from model_builder.py
 # model = model_builder.SEResNeXt(CONFIG_NAME).to(device)
@@ -78,7 +80,7 @@ results = engine.train(model=model,
              device=device,
              use_mixed_precision=True,
              save_name="se_restnet.pth",
-             save_path="/home/h6x/git_projects/ornl-overdose-modeling-per-images/SEResNet_15_channels_weights_track/models/")
+             save_path="/home/h6x/git_projects/ornl-overdose-modeling-per-images/SEResNet_3_channels_CIFAR/models/")
 
 # End the timer and print out how long it took
 end_time = timer()
@@ -107,45 +109,45 @@ print(
 # results["test_acc"].append(test_acc)
 
 # Compute confusion matrix
-conf_matrix = confusion_matrix(y_labels, y_preds)
+# conf_matrix = confusion_matrix(y_labels, y_preds)
 
-# Plot confusion matrix
-def plot_confusion_matrix(conf_matrix, class_names):
-    plt.figure(figsize=(10, 7))
-    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', cbar=False, 
-                xticklabels=class_names, yticklabels=class_names)
-    plt.xlabel('Predicted')
-    plt.ylabel('True')
-    plt.title('Confusion Matrix')
-    # plt.show()
-    plt.savefig('/home/h6x/git_projects/ornl-overdose-modeling-per-images/SEResNet_15_channels_weights_track/plots/confusion_matrix_test_1_90_percentile_1.png')
+# # Plot confusion matrix
+# def plot_confusion_matrix(conf_matrix, class_names):
+#     plt.figure(figsize=(10, 7))
+#     sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', cbar=False, 
+#                 xticklabels=class_names, yticklabels=class_names)
+#     plt.xlabel('Predicted')
+#     plt.ylabel('True')
+#     plt.title('Confusion Matrix')
+#     # plt.show()
+#     plt.savefig('/home/h6x/git_projects/ornl-overdose-modeling-per-images/SEResNet_3_channels_CIFAR/plots/confusion_matrix_test_1_90_percentile_1.png')
 
-# Plot the confusion matrix
-plot_confusion_matrix(conf_matrix, class_names)
+# # Plot the confusion matrix
+# plot_confusion_matrix(conf_matrix, class_names)
 
 # Function to calculate TPR and FPR for each class
-def calculate_tpr_fpr(conf_matrix):
-    num_classes = conf_matrix.shape[0]
-    TPR = np.zeros(num_classes)
-    FPR = np.zeros(num_classes)
-    FNR = np.zeros(num_classes)
+# def calculate_tpr_fpr(conf_matrix):
+#     num_classes = conf_matrix.shape[0]
+#     TPR = np.zeros(num_classes)
+#     FPR = np.zeros(num_classes)
+#     FNR = np.zeros(num_classes)
     
-    for i in range(num_classes):
-        TP = conf_matrix[i, i]
-        FN = np.sum(conf_matrix[i, :]) - TP
-        FP = np.sum(conf_matrix[:, i]) - TP
-        TN = np.sum(conf_matrix) - (TP + FN + FP)
+#     for i in range(num_classes):
+#         TP = conf_matrix[i, i]
+#         FN = np.sum(conf_matrix[i, :]) - TP
+#         FP = np.sum(conf_matrix[:, i]) - TP
+#         TN = np.sum(conf_matrix) - (TP + FN + FP)
         
-        TPR[i] = TP / (TP + FN) if (TP + FN) != 0 else 0
-        FPR[i] = FP / (FP + TN) if (FP + TN) != 0 else 0
-        FNR[i] = FN / (TP + FN) if (TP + FN) != 0 else 0
+#         TPR[i] = TP / (TP + FN) if (TP + FN) != 0 else 0
+#         FPR[i] = FP / (FP + TN) if (FP + TN) != 0 else 0
+#         FNR[i] = FN / (TP + FN) if (TP + FN) != 0 else 0
     
-    return TPR, FPR, FNR
+#     return TPR, FPR, FNR
 
-# Calculate TPR and FPR
-TPR, FPR, FNR = calculate_tpr_fpr(conf_matrix)
+# # Calculate TPR and FPR
+# TPR, FPR, FNR = calculate_tpr_fpr(conf_matrix)
 
-# Print TPR and FPR for each class
-for idx, class_name in enumerate(class_names):
-    print(f"Class {class_name} - TPR: {TPR[idx]:.2f}, FPR: {FPR[idx]:.2f}, FNR: {FNR[idx]:.2f}")
+# # Print TPR and FPR for each class
+# for idx, class_name in enumerate(class_names):
+#     print(f"Class {class_name} - TPR: {TPR[idx]:.2f}, FPR: {FPR[idx]:.2f}, FNR: {FNR[idx]:.2f}")
 
