@@ -8,7 +8,6 @@ SEResNet_15_channels_weights_track/models/
 SEResNet_15_channels_weights_track/plots/
 SEResNet_15_channels_weights_track/going_modular/runs/
 
-
 SEResNet_3_channels_CIFAR/models/
 SEResNet_3_channels_CIFAR/plots/
 SEResNet_3_channels_CIFAR/going_modular/runs/
@@ -16,3 +15,7 @@ SEResNet_3_channels_CIFAR/going_modular/runs/
 Epoch_model/checkpoints/
 Epoch_model/logs/
 Epoch_model/runs/
+
+Experiment_model/models/
+Experiment_model/plots/
+Experiment_model/going_modular/runs/
