@@ -4,7 +4,7 @@ Trains a PyTorch image classification model using device-agnostic code.
 
 import os
 import torch
-import data_setup, engine, model_builder, utils,loss_and_accuracy_curve_plotter,testing
+import data_setup, engine, model_builder, utils,loss_and_accuracy_curve_plotter,testing,model_builder_test_2
 from torchvision import transforms
 from timeit import default_timer as timer 
 from sklearn.metrics import confusion_matrix
@@ -14,8 +14,8 @@ from sklearn.utils.class_weight import compute_class_weight
 import numpy as np
 
 # Setup hyperparameters
-NUM_EPOCHS = 15
-BATCH_SIZE = 64
+NUM_EPOCHS = 5
+BATCH_SIZE = 1
 LEARNING_RATE = 0.00020703742384961855
 # LEARNING_RATE = 1e-04
 
@@ -25,7 +25,7 @@ CONFIG_NAME = 50
 # Setup directories
 # Data
 root_dir = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/npy_combined"
-annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile.csv"
+annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile_random.csv"
 
 # Model save and plots
 model_root_dir = "/home/h6x/git_projects/ornl-overdose-modeling-per-images/Experiment_model"
@@ -49,7 +49,8 @@ train_dataloader, validation_dataloader, test_dataloader, class_names = data_set
 )
 
 # Create model with help from model_builder.py
-model = model_builder.SEResNeXt(CONFIG_NAME).to(device)
+# model = model_builder.SEResNeXt(CONFIG_NAME).to(device)
+model = model_builder_test_2.ExperimentNet(in_channels=15, r=16).to(device)
 # model = model_builder.SEResNet(CONFIG_NAME).to(device)
 
 
@@ -73,7 +74,7 @@ results = engine.train(model=model,
              device=device,
              use_mixed_precision=True,
              save_name="se_restnet.pth",
-             save_path=os.path.join(model_root_dir, "models"))
+             save_path=os.path.join(model_root_dir, "models/"))
 
 # End the timer and print out how long it took
 end_time = timer()
