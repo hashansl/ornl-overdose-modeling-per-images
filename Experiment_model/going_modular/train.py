@@ -4,7 +4,7 @@ Trains a PyTorch image classification model using device-agnostic code.
 
 import os
 import torch
-import data_setup, engine, model_builder, utils,loss_and_accuracy_curve_plotter,testing,model_builder_test_2
+import data_setup, engine, model_builder, utils,loss_and_accuracy_curve_plotter,testing,model_builder_test_2,model_builder_test_3,model_builder_test_4,model_builder_test_5
 from torchvision import transforms
 from timeit import default_timer as timer 
 from sklearn.metrics import confusion_matrix
@@ -14,8 +14,8 @@ from sklearn.utils.class_weight import compute_class_weight
 import numpy as np
 
 # Setup hyperparameters
-NUM_EPOCHS = 5
-BATCH_SIZE = 1
+NUM_EPOCHS = 500
+BATCH_SIZE = 64
 LEARNING_RATE = 0.00020703742384961855
 # LEARNING_RATE = 1e-04
 
@@ -50,7 +50,7 @@ train_dataloader, validation_dataloader, test_dataloader, class_names = data_set
 
 # Create model with help from model_builder.py
 # model = model_builder.SEResNeXt(CONFIG_NAME).to(device)
-model = model_builder_test_2.ExperimentNet(in_channels=15, r=16).to(device)
+model = model_builder_test_5.ExperimentNet(in_channels=15).to(device)
 # model = model_builder.SEResNet(CONFIG_NAME).to(device)
 
 

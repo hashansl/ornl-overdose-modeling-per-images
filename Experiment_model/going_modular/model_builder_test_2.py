@@ -49,7 +49,7 @@ class ExperimentNet(nn.Module):
         self.seblock = SeBlock(in_channels, r=r)
         self.adaptive_pool = nn.AdaptiveAvgPool2d((1, 1))  # Downscales to (N, C, 1, 1)
         self.fc = nn.Linear(in_channels, classes)
-        # self.init_weight()
+        self.init_weight() #initializes all above layers
 
     # def forward(self, x):
     #     x = self.seblock(x)
