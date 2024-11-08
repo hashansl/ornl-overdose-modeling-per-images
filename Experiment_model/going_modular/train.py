@@ -14,7 +14,7 @@ from sklearn.utils.class_weight import compute_class_weight
 import numpy as np
 
 # Setup hyperparameters
-NUM_EPOCHS = 500
+NUM_EPOCHS = 700
 BATCH_SIZE = 64
 LEARNING_RATE = 0.00020703742384961855
 # LEARNING_RATE = 1e-04

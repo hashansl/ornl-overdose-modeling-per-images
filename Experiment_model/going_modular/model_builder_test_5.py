@@ -116,18 +116,18 @@ class ExperimentNet(nn.Module):
     #         if isinstance(layer, nn.Conv2d) or isinstance(layer, nn.Linear):
     #             nn.init.kaiming_normal_(layer.weight)
 
-# if __name__ == "__main__":
-#     image = torch.rand(32, 15, 224, 224)  # Sample input tensor
-#     # Rsnet = ExperimentNet(in_channels=15, r=16)
-#     Rsnet = ExperimentNet(in_channels=15)
+if __name__ == "__main__":
+    image = torch.rand(32, 15, 224, 224)  # Sample input tensor
+    # Rsnet = ExperimentNet(in_channels=15, r=16)
+    Rsnet = ExperimentNet(in_channels=15)
 
 
-#     # Print a summary using torchinfo 
-#     torchinfo.summary(
-#         model=Rsnet,
-#         input_data=image,
-#         col_names=["input_size", "output_size", "num_params", "kernel_size", "mult_adds"],
-#         col_width=16
-#     )
+    # Print a summary using torchinfo 
+    torchinfo.summary(
+        model=Rsnet,
+        input_data=image,
+        col_names=["input_size", "output_size", "num_params", "kernel_size", "mult_adds"],
+        col_width=16
+    )
 
 
