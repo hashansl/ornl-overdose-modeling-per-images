@@ -14,7 +14,7 @@ from sklearn.utils.class_weight import compute_class_weight
 import numpy as np
 
 # Setup hyperparameters
-NUM_EPOCHS = 700
+NUM_EPOCHS = 200
 BATCH_SIZE = 64
 LEARNING_RATE = 0.00020703742384961855
 # LEARNING_RATE = 1e-04
@@ -25,7 +25,10 @@ CONFIG_NAME = 50
 # Setup directories
 # Data
 root_dir = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/npy_combined"
-annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile_random.csv"
+# annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile_random.csv"
+annotation_file_path = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_3/processed_data_1/annotations_2018_npy_5_classes_only_h0h1.csv"
+
+
 
 # Model save and plots
 model_root_dir = "/home/h6x/git_projects/ornl-overdose-modeling-per-images/Experiment_model"
@@ -50,8 +53,10 @@ train_dataloader, validation_dataloader, test_dataloader, class_names = data_set
 
 # Create model with help from model_builder.py
 # model = model_builder.SEResNeXt(CONFIG_NAME).to(device)
-model = model_builder_test_5.ExperimentNet(in_channels=15).to(device)
+# model = model_builder_test_5.ExperimentNet(in_channels=15).to(device)
 # model = model_builder.SEResNet(CONFIG_NAME).to(device)
+model = model_builder_test_4.ExperimentNet(in_channels=15).to(device)
+
 
 
 # Set loss and optimizer

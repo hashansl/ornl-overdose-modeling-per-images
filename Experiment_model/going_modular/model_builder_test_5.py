@@ -66,9 +66,10 @@ class ExperimentNet(nn.Module):
         self.sigmoid = nn.Sigmoid()
 
         self.resnetblock = ResNetBlock(C, C, first=False)
+        self.resnetblock2 = ResNetBlock(C, C, first=False)
 
-        self.resnetblock2 = ResNetBlock(C, 512, first=False)
-        self.resnetblock3 = ResNetBlock(512, C, first=False)
+        # self.resnetblock2 = ResNetBlock(C, 512, first=False)
+        # self.resnetblock3 = ResNetBlock(512, C, first=False)
 
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc3 = nn.Linear(C, 2)
@@ -98,7 +99,7 @@ class ExperimentNet(nn.Module):
 
         f = self.resnetblock2(f)   #comment this line if you want to test the model without resnet block
 
-        f = self.resnetblock3(f)   #comment this line if you want to test the model without resnet block
+        # f = self.resnetblock3(f)   #comment this line if you want to test the model without resnet block
 
         f = self.avgpool(f)
         # print(f"After avgpool shape: {x.shape}")
@@ -123,18 +124,18 @@ class ExperimentNet(nn.Module):
     #         if isinstance(layer, nn.Conv2d) or isinstance(layer, nn.Linear):
     #             nn.init.kaiming_normal_(layer.weight)
 
-# if __name__ == "__main__":
-#     image = torch.rand(32, 15, 224, 224)  # Sample input tensor
-#     # Rsnet = ExperimentNet(in_channels=15, r=16)
-#     Rsnet = ExperimentNet(in_channels=15)
+if __name__ == "__main__":
+    image = torch.rand(32, 15, 224, 224)  # Sample input tensor
+    # Rsnet = ExperimentNet(in_channels=15, r=16)
+    Rsnet = ExperimentNet(in_channels=15)
 
 
-#     # Print a summary using torchinfo 
-#     torchinfo.summary(
-#         model=Rsnet,
-#         input_data=image,
-#         col_names=["input_size", "output_size", "num_params", "kernel_size", "mult_adds"],
-#         col_width=16
-#     )
+    # Print a summary using torchinfo 
+    torchinfo.summary(
+        model=Rsnet,
+        input_data=image,
+        col_names=["input_size", "output_size", "num_params", "kernel_size", "mult_adds"],
+        col_width=16
+    )
 
 

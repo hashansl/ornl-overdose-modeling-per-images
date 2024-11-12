@@ -113,7 +113,7 @@ class SEResNet(nn.Module):
         self, 
         config_name : int, 
         in_channels : int = 15, # intial number of channels is 3 
-        classes : int = 2,
+        classes : int = 5,
         r : int = 16
         ):
         super().__init__()
