@@ -19,3 +19,10 @@ Epoch_model/runs/
 Experiment_model/models/
 Experiment_model/plots/
 Experiment_model/going_modular/runs/
+
+
+Experiment_transfer_learning/models/
+Experiment_transfer_learning/plots/
+Experiment_transfer_learning/going_modular/runs/
+
+
