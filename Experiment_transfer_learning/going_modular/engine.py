@@ -19,7 +19,7 @@ def train_step(model: torch.nn.Module,
                device: torch.device,
                writer: SummaryWriter,
                epoch: int,
-               use_mixed_precision: bool = False) -> Tuple[float, float]:
+               use_mixed_precision: bool = False) -> Tuple[float, float, float]:
   """Trains a PyTorch model for a single epoch.
 
   Turns a target PyTorch model to training mode and then
@@ -66,6 +66,11 @@ def train_step(model: torch.nn.Module,
         # Send data to target device
         X, y = X.to(device), y.to(device)
 
+        # Print data types of X and model weights for verification
+        # print(f"Input tensor dtype: {X.dtype}")
+        # print(f"Model weights dtype: {model.parameters().__next__().dtype}")  # Checking the dtype of the first model weight
+
+
         # # Debugging: Print X and y values
         # print(f"Batch {batch} - y: {y}")
         
@@ -75,6 +80,7 @@ def train_step(model: torch.nn.Module,
 
         # 1. Forward pass
         y_pred = model(X)
+      
 
         # 2. Calculate  and accumulate loss
         loss = loss_fn(y_pred, y)
@@ -92,6 +98,8 @@ def train_step(model: torch.nn.Module,
 
         train_loss += loss.detach().cpu().item()
 
+        print(f"Batch {batch} - Loss: {loss.item()}")
+
         # 3. Optimizer zero grad
         optimizer.zero_grad()
 
@@ -103,9 +111,10 @@ def train_step(model: torch.nn.Module,
         scaler.update()
         
         # Log weights and gradients for each epoch
-        for name, param in model.named_parameters():
-            writer.add_histogram(name, param, epoch)
-            writer.add_histogram(f'{name}.grad', param.grad, epoch)
+        # for name, param in model.named_parameters():
+        #     # print(f"Gradient for {name}: {param.grad.norm()}")
+        #     writer.add_histogram(name, param, epoch)
+        #     writer.add_histogram(f'{name}.grad', param.grad, epoch)
 
         # Calculate and accumulate accuracy metric across all batches
         y_pred_class = torch.argmax(torch.softmax(y_pred, dim=1), dim=1)
