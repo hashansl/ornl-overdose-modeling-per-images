@@ -24,11 +24,23 @@ CONFIG_NAME = 50
 
 # Setup directories
 # Data
+
+# NOT SCALED DATA
 root_dir = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/npy_combined"
-annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile_random.csv"
+
+# SCALED DATA
+# root_dir = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_3/processed_data_1/npy_combined"
+
+# Annotations
+# top 5% as class 1
+annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_95_percentile_random.csv"
+# top 10% as class 1
+# annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile_random.csv"
+# top 20% as class 1
+# annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_80_percentile_random.csv"
 # annotation_file_path = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_3/processed_data_1/annotations_2018_npy_5_classes_only_h0h1.csv"
 
-
+experiment_name = "experiment_2"
 
 # Model save and plots
 model_root_dir = "/home/h6x/git_projects/ornl-overdose-modeling-per-images/Experiment_model"
@@ -78,7 +90,7 @@ results = engine.train(model=model,
              epochs=NUM_EPOCHS,
              device=device,
              use_mixed_precision=True,
-             save_name="se_restnet.pth",
+             save_name=f'model_{experiment_name}.pth',
              save_path=os.path.join(model_root_dir, "models/"))
 
 # End the timer and print out how long it took
@@ -115,10 +127,10 @@ def plot_confusion_matrix(conf_matrix, class_names):
     plt.ylabel('True')
     plt.title('Confusion Matrix')
     # plt.show()
-    plt.savefig(os.path.join(plots_dir, "confusion_matrix.png"))
+    plt.savefig(os.path.join(plots_dir, f'confusion_matrix_{experiment_name}.png'))
 
 # Plot the confusion matrix
-plot_confusion_matrix(conf_matrix, class_names)
+# plot_confusion_matrix(conf_matrix, class_names)
 
 # Function to calculate TPR and FPR for each class
 def calculate_tpr_fpr(conf_matrix):
