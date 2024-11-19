@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from typing import Dict, List
 import os
 
-def plot_loss_curves(results: Dict[str, List[float]],path:str):
+def plot_loss_curves(results: Dict[str, List[float]],path:str,experiment_name:str):
     """Plots training curves of a results dictionary.
 
     Args:
@@ -42,4 +42,4 @@ def plot_loss_curves(results: Dict[str, List[float]],path:str):
     plt.title('Accuracy')
     plt.xlabel('Epochs')
     plt.legend()
-    plt.savefig(os.path.join(path, "loss_and_accuracy_curves.png"))
+    plt.savefig(os.path.join(path, f'loss_and_accuracy_curves_{experiment_name}.png'))

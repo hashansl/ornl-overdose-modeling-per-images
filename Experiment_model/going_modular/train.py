@@ -33,14 +33,14 @@ root_dir = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/process
 
 # Annotations
 # top 5% as class 1
-annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_95_percentile_random.csv"
+# annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_95_percentile_random.csv"
 # top 10% as class 1
-# annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile_random.csv"
+annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_90_percentile_random.csv"
 # top 20% as class 1
 # annotation_file_path ="/home/h6x/git_projects/ornl-svi-data-processing/experiment_2/processed_data_1/annotations_2018_npy_2_classes_only_h0h1_80_percentile_random.csv"
 # annotation_file_path = "/home/h6x/git_projects/ornl-svi-data-processing/experiment_3/processed_data_1/annotations_2018_npy_5_classes_only_h0h1.csv"
 
-experiment_name = "experiment_2"
+experiment_name = "not_scaled_data_2_classes_90_percentile_SEResNet_50"
 
 # Model save and plots
 model_root_dir = "/home/h6x/git_projects/ornl-overdose-modeling-per-images/Experiment_model"
@@ -66,9 +66,9 @@ train_dataloader, validation_dataloader, test_dataloader, class_names = data_set
 # Create model with help from model_builder.py
 # model = model_builder.SEResNeXt(CONFIG_NAME).to(device)
 # model = model_builder_test_5.ExperimentNet(in_channels=15).to(device)
-# model = model_builder.SEResNet(CONFIG_NAME).to(device)
+model = model_builder.SEResNet(CONFIG_NAME).to(device)
 # model = model_builder_test_4.ExperimentNet(in_channels=15).to(device)
-model = model_builder_simple_CNN.AdvancedCNN(in_channels=15, num_classes=2).to(device)
+# model = model_builder_simple_CNN.AdvancedCNN(in_channels=15, num_classes=2).to(device)
 
 
 # Set loss and optimizer
@@ -99,7 +99,7 @@ print(f"Total training time: {end_time-start_time:.3f} seconds")
 print(f"Total training time: {(end_time-start_time)/60:.3f} minutes")
 
 # Plotting the results
-loss_and_accuracy_curve_plotter.plot_loss_curves(results,plots_dir)
+loss_and_accuracy_curve_plotter.plot_loss_curves(results,plots_dir,experiment_name)
 
 # Test the model after training
 test_loss, test_acc, y_labels, y_preds  = testing.test_step(model=model,
